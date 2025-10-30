@@ -39,12 +39,17 @@ describe('Funcionalidade: Login', () => {
         cy.get('.woocommerce-MyAccount-content > :nth-child(2)') .should('contain', 'Olá, larissa.teste-5308 (não é larissa.teste-5308? Sair)')   
     });
 
-    it.only('Deve fazer login com sucesso - Usando Fixture', () => {
+    it('Deve fazer login com sucesso - Usando Fixture', () => {
         cy.fixture('perfil').then(dados => {
             cy.get('#username') .type(dados.usuário)
             cy.get('#password') .type(dados.senha , {log: false}) // use log: false para esconder a senha e não aparecer dados sensíveis
             cy.get('.woocommerce-form > .button') .click() 
             cy.get('.woocommerce-MyAccount-content > :nth-child(2)') .should('contain', 'Olá, larissa.teste-5308 (não é larissa.teste-5308? Sair)')  
         })
+    });
+
+    it.only('Deve fazer login com sucesso - Usando Comandos Customizados', () => {
+        cy.login('larissa.teste@gmail.com' , 'testeebac1')
+        cy.get('.woocommerce-MyAccount-content > :nth-child(2)') .should('contain', 'Olá, larissa.teste-5308 (não é larissa.teste-5308? Sair)') 
     });
 })
